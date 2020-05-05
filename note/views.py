@@ -9,7 +9,10 @@ from .forms import FormNote
 
 class ViewNoteList(ListView):
     model = ModelNote
-    template_name = 'note/note_list.html'
+    template_name = 'note/note_list.html'	# Default: <app_label>/<model_name>_list.html
+    context_object_name = 'notes'  # Default: object_list
+    paginate_by = 5
+    queryset = ModelNote.objects.all()  # Default: Model.objects.all()
 
 
 class ViewNoteCreate(CreateView):
@@ -39,3 +42,12 @@ class ViewNoteDetail(DetailView):
 
 class ViewNoteTemplate(ListView):
     model = ModelNote
+    template_name = 'core/note_list.html'  # Default: <app_label>/<model_name>_list.html
+    # context_object_name = 'notes'  # Default: object_list
+    paginate_by = 2
+    queryset = ModelNote.objects.all()  # Default: Model.objects.all()
+
+
+
+
+

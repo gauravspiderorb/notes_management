@@ -2,27 +2,60 @@
 {% block body %}
 <div class="container">
     <h2 class="text-center">User List</h2><hr>
-
-    {% if object_list %}
-    <ul class="col-md-8 col-md-offset-4">
-        {% for note in object_list %}
-
-        <a href="{% url 'detail' note.pk %}">
-            <p><li>{{ note.title }}</li></a></p>
-	
-
-
-        <a class="btn btn-success btn-sm"
-           href="{% url 'update' note.pk %}">UPDATE</a>
-
-        <a class="btn btn-danger btn-sm"
+	{% if object_list %}
+	<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Delete</th>
+      <th>Detail</th>
+      <th>Update</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for note in object_list %}
+      <tr>
+        <td>{{ note.pk }}</td>
+        <td>{{ note.title }}</td>
+        <td>{{ note.description }}</td>
+	<td><a class="btn btn-danger btn-sm"
            href="{% url 'delete' note.pk %}">DELETE</a>
-	
-	<a class="btn btn-default btn-sm"
+	</td>
+	<td><a class="btn btn-default btn-sm"
            href="{% url 'detail' note.pk %}">DETAIL</a>
-        {% endfor %}
-    </ul>
-
+	</td>
+	<td><a class="btn btn-success btn-sm"
+           href="{% url 'update' note.pk %}">UPDATE</a>
+	</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<center>
+{% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+</center>
     {% else %}
     <p><strong>No Note Found!</strong></p>
     {% endif %}
