@@ -1,0 +1,31 @@
+{% extends "base/skeleton.html" %}
+{% block body %}
+<div class="container">
+    <h2 class="text-center">User List</h2><hr>
+
+    {% if object_list %}
+    <ul class="col-md-8 col-md-offset-4">
+        {% for note in object_list %}
+
+        <a href="{% url 'detail' note.pk %}">
+            <p><li>{{ note.title }}</li></a></p>
+	
+
+
+        <a class="btn btn-success btn-sm"
+           href="{% url 'update' note.pk %}">UPDATE</a>
+
+        <a class="btn btn-danger btn-sm"
+           href="{% url 'delete' note.pk %}">DELETE</a>
+	
+	<a class="btn btn-default btn-sm"
+           href="{% url 'detail' note.pk %}">DETAIL</a>
+        {% endfor %}
+    </ul>
+
+    {% else %}
+    <p><strong>No Note Found!</strong></p>
+    {% endif %}
+
+</div>
+{% endblock body %}

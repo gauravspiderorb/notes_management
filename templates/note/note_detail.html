@@ -1,0 +1,15 @@
+{% extends "base/skeleton.html" %}
+{% block body %}
+<div class="container">
+    <h1>Detail</h1><hr>
+    <p><strong>Title: {{object.title}}</strong></p>
+    <p><strong>Description: {{object.description}}</strong></p>
+    <a class="btn btn-success"
+       href="{% url 'update' object.id %}"
+    >Update</a>
+
+    <a class="btn btn-danger"
+       href="{% url 'delete' object.id %}"
+    >Delete</a>
+</div>
+{% endblock body %}
